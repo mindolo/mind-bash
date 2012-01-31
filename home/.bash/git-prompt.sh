@@ -263,25 +263,29 @@ set_shell_label() {
         id=${id#$default_user}
 
 ########################################################### TTY
-        tty=`tty`
-        tty=`echo $tty | sed "s:/dev/pts/:p:; s:/dev/tty::" `           # RH tty devs
-        tty=`echo $tty | sed "s:/dev/vc/:vc:" `                         # gentoo tty devs
+        
+        if [[ "$show_tty" = "on" ]];  then
+        
+                tty=`tty`
+                tty=`echo $tty | sed "s:/dev/pts/:p:; s:/dev/tty::" `           # RH tty devs
+                tty=`echo $tty | sed "s:/dev/vc/:vc:" `                         # gentoo tty devs
 
-        if [[ "$TERM" = "screen" ]] ;  then
+                if [[ "$TERM" = "screen" ]] ;  then
 
-                #       [ "$WINDOW" = "" ] && WINDOW="?"
-                #
-                #               # if under screen then make tty name look like s1-p2
-                #               # tty="${WINDOW:+s}$WINDOW${WINDOW:+-}$tty"
-                #       tty="${WINDOW:+s}$WINDOW"  # replace tty name with screen number
-                tty="$WINDOW"  # replace tty name with screen number
+                        #       [ "$WINDOW" = "" ] && WINDOW="?"
+                        #
+                        #               # if under screen then make tty name look like s1-p2
+                        #               # tty="${WINDOW:+s}$WINDOW${WINDOW:+-}$tty"
+                        #       tty="${WINDOW:+s}$WINDOW"  # replace tty name with screen number
+                        tty="$WINDOW"  # replace tty name with screen number
+                fi
+        
+                # we don't need tty name under X11
+                case $TERM in
+                        xterm* | rxvt* | gnome-terminal | konsole | eterm* | wterm | cygwin)  unset tty ;;
+                        *);;
+                esac
         fi
-
-        # we don't need tty name under X11
-        case $TERM in
-                xterm* | rxvt* | gnome-terminal | konsole | eterm* | wterm | cygwin)  unset tty ;;
-                *);;
-        esac
 
         dir_color=${!dir_color}
         rc_color=${!rc_color}
