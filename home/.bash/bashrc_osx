@@ -1,0 +1,14 @@
+alias ls='ls -G'
+
+#If present, use macvim from brew
+if [ -x /usr/local/bin/mvim ]; then
+
+	for prg in vim view vimdiff mvimex
+	do
+		alias $prg="/usr/local/bin/m${prg} -v"
+	done
+	#ToDo: Either stop using 'vi' or find a better way to do this
+	alias vi="/usr/local/bin/mvim -v"
+fi
+
+
