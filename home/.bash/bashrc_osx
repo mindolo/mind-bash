@@ -1,9 +1,9 @@
 alias ls='ls -G'
 
 #If present, use macvim from brew
-if [ -x /usr/local/bin/mvim ]; then
+if [ -x `brew --prefix`/bin/mvim ]; then
 
-	for prg in vim view vimdiff mvimex
+	for prg in vim view vimdiff vimex
 	do
 		alias $prg="/usr/local/bin/m${prg} -v"
 	done
@@ -11,4 +11,8 @@ if [ -x /usr/local/bin/mvim ]; then
 	alias vi="/usr/local/bin/mvim -v"
 fi
 
+# Bash completion from brew
 
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
