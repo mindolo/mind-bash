@@ -27,6 +27,11 @@ if [ -r ~/.bashrc_local ]; then
 	source ~/.bashrc_local
 fi
 
+#Load solarized color scheme
+if [ -r ~/.bash/colors/solarized/dircolors.256dark ]; then
+       eval `dircolors ~/.bash/colors/solarized/dircolors.256dark`
+fi
+
 # If this is an interactive shell and the file is present,
 # source also git-prompt.sh
 if [ -r ~/.bash/git-prompt.sh ]; then
