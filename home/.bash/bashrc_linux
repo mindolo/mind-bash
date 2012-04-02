@@ -5,5 +5,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+#Load solarized color scheme
+if [ -r ~/.bash/colors/solarized/dircolors.256dark ]; then
+       eval `dircolors ~/.bash/colors/solarized/dircolors.256dark`
+fi
+
 #some colors
 alias ls='ls --color=auto'

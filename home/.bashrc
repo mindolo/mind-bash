@@ -5,7 +5,8 @@ HISTCONTROL=ignoreboth
 # update the values of LINES and COLUMNS.                                                                                                                                                      
 shopt -s checkwinsize
 
-# Loading platform dependent configuration if present
+
+Loading platform dependent configuration if present
 if [ -d ~/.bash ]; then
 
 	# Check the OS, and source the appropriate file
@@ -25,11 +26,6 @@ fi
 #Load the local bash configuration if present
 if [ -r ~/.bashrc_local ]; then
 	source ~/.bashrc_local
-fi
-
-#Load solarized color scheme
-if [ -r ~/.bash/colors/solarized/dircolors.256dark ]; then
-       eval `dircolors ~/.bash/colors/solarized/dircolors.256dark`
 fi
 
 # If this is an interactive shell and the file is present,
