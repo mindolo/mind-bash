@@ -12,7 +12,11 @@ if [ -x `brew --prefix`/bin/mvim ]; then
 fi
 
 # Bash completion from brew
-
 if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
+fi
+
+# GRC configuration
+if [ -f `brew --prefix grc`/etc/grc.bashrc ]; then
+    . "`brew --prefix grc`/etc/grc.bashrc"
 fi

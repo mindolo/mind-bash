@@ -5,8 +5,7 @@ HISTCONTROL=ignoreboth
 # update the values of LINES and COLUMNS.                                                                                                                                                      
 shopt -s checkwinsize
 
-
-Loading platform dependent configuration if present
+#Loading platform dependent configuration if present
 if [ -d ~/.bash ]; then
 
 	# Check the OS, and source the appropriate file
