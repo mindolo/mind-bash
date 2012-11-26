@@ -26,9 +26,14 @@ if [ -d ~/.bash ]; then
 	esac
 fi
 
-#Load the local bash configuration if present
+# Load the local bash configuration if present
 if [ -r ~/.bashrc_local ]; then
 	source ~/.bashrc_local
+fi
+
+# Load the local aliases file if present
+if [ -r ~/.bash_aliases ]; then
+	source ~/.bash_aliases
 fi
 
 #Load modules
