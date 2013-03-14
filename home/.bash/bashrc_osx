@@ -20,3 +20,8 @@ fi
 if [ -f `brew --prefix grc`/etc/grc.bashrc ]; then
     . "`brew --prefix grc`/etc/grc.bashrc"
 fi
+
+# Insert npm's dir in PATH if node is installed with npm
+if [ -f `brew --prefix`/bin/npm ]; then
+   export PATH=/usr/local/share/npm/bin:$PATH
+fi
