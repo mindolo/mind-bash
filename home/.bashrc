@@ -39,8 +39,8 @@ fi
 #Load modules
 bash_load_modules
 
-# If this is an interactive shell and the file is present,
-# source also git-prompt.sh
-if [ -r ~/.bash/git-prompt.sh ]; then
-	[[ $- == *i* ]]   &&   . ~/.bash/git-prompt.sh
+# If this is an interactive shell and the submodule is present
+# source also liquidprompt
+if [ -r ~/.bash//liquidprompt/liquidprompt ]; then
+	[[ $- == *i* ]]   &&   . ~/.bash/liquidprompt/liquidprompt
 fi
