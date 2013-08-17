@@ -36,8 +36,11 @@ if [ -r ~/.bash_aliases ]; then
 	source ~/.bash_aliases
 fi
 
-#Load modules
+# Load modules
 bash_load_modules
+
+# Add a global reload alias to reload the configuration
+alias reload='source ~/.bashrc'
 
 # If this is an interactive shell and the submodule is present
 # source also liquidprompt
