@@ -3,8 +3,11 @@ if [ -e ${HOME}/.bash/functions.sh ]; then
     source ${HOME}/.bash/functions.sh
 fi
 
+# add ~/.bash/bin/ to $PATH
+export PATH=~/.bash/bin:$PATH
+
 # force ignoredups and ignorespace                                                                                                                                                      
-HISTCONTROL=ignoreboth 
+export HISTCONTROL=ignoreboth
 
 # check the window size after each command and, if necessary,                                                                                                                                  
 # update the values of LINES and COLUMNS.                                                                                                                                                      

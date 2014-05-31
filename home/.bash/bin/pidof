@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+pid=$1
+
+ps axc | awk "{if (\$5==\"$pid\") print \$1}" | tr '\n' ' '
