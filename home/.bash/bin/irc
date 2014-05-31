@@ -1,31 +1,20 @@
 #!/usr/bin/env bash
+irssi_notifier() {
 
-readonly AUTOSSH_PIDFILE=~/.irc_notifier
+AUTOSSH_PIDFILE=~/.irc_notifier
+    # can't be bothered to keep the session open.
+    kill $(cat $AUTOSSH_PIDFILE)
 
-start_notifier() {
-
-  export AUTOSSH_PIDFILE
-  
-  (autossh -M 0 emma \
-    ": > .irssi/fnotify ; tail -f .irssi/fnotify " |  \
-  while read heading message; do                      \
-    url=`echo "${message}" | grep -Eo 'https?://[^ >]+' | head -1`; \
-    if [ ! "$url" ]; then terminal-notifier -message "${message}" -title "${heading}" -activate com.googlecode.iterm2; \
-    else terminal-notifier -message "${message}" -title "${heading}" -open "${url}"; \
-    fi; \
-  done)&
+    export AUTOSSH_PIDFILE
+    (autossh -M 0 emma \
+      ": > .irssi/fnotify ; tail -f .irssi/fnotify " |  \
+        while read heading message; do                      \
+          url=`echo "${message}" | grep -Eo 'https?://[^ >]+' | head -1`; \
+          if [ ! "$url" ]; then terminal-notifier -message "${message}" -title "${heading}" -activate com.googlecode.iterm2; \
+          else terminal-notifier -message "${message}" -title "${heading}" -open "${url}"; \
+          fi; \
+        done)&
 }
 
-reap_notifier() {
-  kill $1
-}
-
-main() {
-
-	if [[ ! -f $AUTOSSH_PIDFILE ]]; then
-    start_notifier
-  fi
-	(mosh emma -- tmux a -d) && reap_notifier $(cat $AUTOSSH_PIDFILE)
-}
-main
-
+irssi_notifier > /dev/null 2>&1
+mosh emma -- tmux a -d
