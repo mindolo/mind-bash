@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 irssi_notifier() {
-
-AUTOSSH_PIDFILE=~/.irc_notifier
+    
+    AUTOSSH_POLL=60
+    AUTOSSH_PIDFILE=~/.irc_notifier
     # can't be bothered to keep the session open.
     kill $(cat $AUTOSSH_PIDFILE)
 
     export AUTOSSH_PIDFILE
-    (autossh -M 0 emma \
+    (autossh emma \
       ": > .irssi/fnotify ; tail -f .irssi/fnotify " |  \
         while read heading message; do                      \
           url=`echo "${message}" | grep -Eo 'https?://[^ >]+' | head -1`; \
