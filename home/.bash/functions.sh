@@ -2,8 +2,8 @@ confpath=${HOME}/.bash
 
 ##########
 ## Modules are snippets of configuration
-## that can be loaded dynamically or enabled
-## and loaded at startup
+## that can be active dynamically or enabled
+## and active at startup
 ##########
 
 mod_path=${confpath}/modules
@@ -11,9 +11,9 @@ enabled_list=${confpath}/enabled_mods
 active_list=${confpath}/active_mods
 
 
-is_mod_loaded(){
+is_mod_active(){
     module=$1
-    if $(grep -qx $module $loaded_list 2> /dev/null); then
+    if $(grep -qx $module $active_list 2> /dev/null); then
         return 0
     else
         return 1
@@ -60,7 +60,7 @@ bash_disable_mod() {
     module=$1
     if is_mod_enabled "$module"; then
         echo -e "/$module/d\nwq"|ex -s $enabled_list
-        echo "$module disabled, it won't be loaded on next startup"
+        echo "$module disabled, it won't be active on next startup"
         return 0
     else
         echo "$module not enabled"
@@ -70,7 +70,7 @@ bash_disable_mod() {
 
 #Shows enabled mods
 bash_list_enabled_mods() {
-    echo "Modules loaded:"
+    echo "Modules active:"
     cat $enabled_list
     return 0
 }
@@ -92,7 +92,7 @@ bash_load_module(){
     module=$1
     if is_module_present $module;then
         source $module;
-        echo "$module loaded"
+        echo "$module active"
         return 0
     else
         echo "Couldn't find $module"
@@ -102,6 +102,6 @@ bash_load_module(){
 #Shows active mods
 bash_list_active_mods() {
     echo "Modules enabled:"
-    cat $loaded_list
+    cat $active_list
     return 0
 }
