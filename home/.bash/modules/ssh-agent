@@ -27,6 +27,8 @@ _sockfile="${HOME}/.ssh/agent.sock"
 
 if [ "$0" != "-bash" ];
 then
+
+	echo $0
     echo '
 OOPS! Did you mean to source this script? Try this:
 
@@ -100,6 +102,16 @@ set_socket_file()
 discover_ssh_agent()
 {
     set_agent_pid
+
+    if [ ! -z "SSH_CONNECTION" -a ! -z "SSH_AUTH_SOCK" ]; then
+            # We are in an ssh session with agent forwarding enabled, test if it works.
+            ssh-add -l &> /dev/null
+            if [ $? -eq 0 ]; then
+		    # $SSH_AUTH_SOCK is already set, echo and return.
+                    echo "Found exported agent at ${SSH_AUTH_SOCK}."
+                    return
+            fi
+    fi
 
     if [ -z $_agent_pid ];   # no agent PID discovered
     then
