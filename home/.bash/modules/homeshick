@@ -1,0 +1,3 @@
+if [ -e "$HOME/.homesick/repos/homeshick/homeshick.sh" ] ; then
+	source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+fi
