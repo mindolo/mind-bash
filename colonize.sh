@@ -16,4 +16,5 @@ echo "Loading homeshick"
 source "$_repodir"/homeshick.sh
 
 homeshick clone mindolo/mind-bash
+homeshick link mind-bash
 exec bash
