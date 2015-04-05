@@ -25,17 +25,6 @@ TMPDIR=${1-/tmp}
 # See README file, SSH-AGENT SOCKET note
 _sockfile="${HOME}/.ssh/agent.sock"
 
-if [ "$0" != "-bash" ];
-then
-
-	echo $0
-    echo '
-OOPS! Did you mean to source this script? Try this:
-
-    source ~/.ssh/agent.sh
-'
-fi
-
 if [ ! -z "$_sockfile" ];
 then
     _agent_opts="-a $_sockfile $_agent_opts"
