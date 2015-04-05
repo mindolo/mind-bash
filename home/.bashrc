@@ -1,3 +1,11 @@
+# Check if we are in an interactive session
+# return if not.
+case "$-" in
+*i*)	;;
+*)	return;;
+esac
+
+
 #Load functions file
 if [ -e ${HOME}/.bash/functions.sh ]; then
     source ${HOME}/.bash/functions.sh
