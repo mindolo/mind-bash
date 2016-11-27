@@ -1,13 +1,35 @@
-export MARKPATH=$HOME/.marks
-function jump { 
+if [ -z ${EPHEMERAL_MARKS} ]; then
+    export MARKPATH=$HOME/.marks
+else
+    MARKPATH=$(mktemp -d)
+    export MARKPATH
+fi
+
+function clean_ephemeral {
+    if [ -n $EPHEMERAL_MARKS ]; then
+        rm -rf $MARKPATH
+    fi
+}
+trap clean_ephemeral EXIT
+
+function jump {
     cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
 }
-function mark { 
+function mark {
     mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
 }
-function unmark { 
-    rm -i $MARKPATH/$1 
+function unmark {
+    if [ -z $1 ]; then
+        return 1
+    fi
+
+    if [ -L "${MARKPATH}/${1}" ]; then
+        rm ${MARKPATH}/${1}
+    else
+        echo "meh"
+        return 2
+    fi
 }
 function marks {
-    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
+    find $MARKPATH -type l -printf '\t%f -->\t' -exec readlink {} ';'; echo
 }
