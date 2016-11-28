@@ -1,0 +1,7 @@
+if [ $(command -v go >/dev/null 2>&1) ]; then
+    GOPATH=${HOME}/go
+    GOBINPATH=${GOPATH}/bin
+    mkdir -p ${GOBINPATH}
+    export GOPATH
+    export PATH=$PATH:GOBINPATH
+fi
