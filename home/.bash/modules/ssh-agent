@@ -15,7 +15,6 @@
 #   If you use GUI apps that are ssh-agent aware, you will need to run the
 #   script once, log out, and log back in. Then your GUI apps will be
 #   ssh-agent aware.
-
 unset _sockfile
 _agent_opts=""   # set any desired ssh-agent options here
 
@@ -65,9 +64,7 @@ main()
 
 set_agent_pid()
 {
-    # this is expensive but reliable
-    #echo "checking for ssh-agent process"
-    _agent_pid=`ps uwwxU $USER | grep ssh-agent | grep -v grep | awk '{ print $2 }' | tail -n1`
+    _agent_pid=$(pgrep -U $USER -o ssh-agent)
 }
 
 set_socket_file()
@@ -76,6 +73,8 @@ set_socket_file()
     if [ -z "$_sockfile" ] || [ ! -e "$_sockfile" ];
     then
         _sock_pid=`echo "${_agent_pid} - 1" | bc`
+        echo _sock_pid
+        echo $TMPDIR/ssh-*/agent.${_sockpid}
         _sockfile=`/bin/ls $TMPDIR/ssh-*/agent.${_sock_pid}`
     fi
 
